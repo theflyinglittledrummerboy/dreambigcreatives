@@ -2,22 +2,118 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Dream Big Creatives</title>
 <meta name="description" content="Dream Big Creatives — cinematic films, events, photography and visual storytelling.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
-<style>body{margin:0;background:#060606;color:#f5f4f1;font-family:Inter,Arial,sans-serif}a{color:inherit;text-decoration:none}.wrap{width:min(calc(100% - 48px),1280px);margin:auto}.intro{position:fixed;inset:0;z-index:999;background:#030303;display:grid;place-items:center;transition:.7s}.intro.hide{opacity:0;visibility:hidden}.intro img{width:min(310px,58vw)}nav{position:fixed;top:0;left:0;right:0;z-index:80}.nav{height:82px;display:flex;align-items:center;justify-content:space-between}.logo img{width:92px}.links{display:flex;gap:32px;font-size:.68rem;letter-spacing:.13em;text-transform:uppercase}.hero{min-height:100vh}.hero-grid{display:grid;grid-template-columns:.9fr 1.1fr;min-height:100vh}.hero-copy{display:flex;flex-direction:column;justify-content:center;padding-right:70px}.hero h1{font-family:Montserrat,Arial,sans-serif;font-weight:300;font-size:clamp(4rem,7.2vw,7.2rem);line-height:.94}.hero p{color:#9e9e9e;max-width:390px}.hero-image img{width:100%;height:100%;object-fit:cover}.about,.work,.services,.cta{padding:110px 0}.about-grid,.work-grid,.services-grid{display:grid;gap:24px}.about-grid{grid-template-columns:1.05fr .95fr}.work-grid,.services-grid{grid-template-columns:repeat(3,1fr)}.about img,.work-card img{width:100%;object-fit:cover}.work-card img{aspect-ratio:4/3}.cta{text-align:center}.cta img{width:115px;margin:auto}.btn{display:inline-block;border:1px solid rgba(255,255,255,.3);padding:14px 18px;font-size:.68rem;text-transform:uppercase;letter-spacing:.12em}.muted{color:#9e9e9e}@media(max-width:960px){.hero-grid,.about-grid,.work-grid,.services-grid{grid-template-columns:1fr}.links a:not(.btn){display:none}.hero-copy{padding:140px 0 60px}}</style>
+<style>
+:root{--bg:#060606;--text:#f5f4f1;--muted:#9e9e9e;--line:rgba(255,255,255,.12);--nav:rgba(6,6,6,.88)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif;overflow-x:hidden}
+body.menu-open{overflow:hidden}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+button{font:inherit}
+.wrap{width:min(calc(100% - 48px),1280px);margin:auto}
+.intro{position:fixed;inset:0;z-index:999;background:#030303;display:grid;place-items:center;transition:.7s}
+.intro.hide{opacity:0;visibility:hidden}
+.intro img{width:min(310px,58vw)}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:80;transition:.28s ease}
+nav.scrolled,nav.menu-open{background:var(--nav);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.nav{height:82px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.logo{position:relative;z-index:83;display:flex;align-items:center}
+.logo img{width:92px;height:auto}
+.links{display:flex;align-items:center;gap:32px;font-size:.68rem;letter-spacing:.13em;text-transform:uppercase}
+.links>a{opacity:.82;transition:.2s ease}
+.links>a:hover{opacity:1}
+.menu-toggle{display:none;position:relative;z-index:83;width:44px;height:44px;border:0;background:transparent;color:#fff;cursor:pointer;padding:0;align-items:center;justify-content:center}
+.menu-toggle span,.menu-toggle span:before,.menu-toggle span:after{display:block;width:22px;height:1px;background:#fff;position:relative;transition:.25s ease}
+.menu-toggle span:before,.menu-toggle span:after{content:"";position:absolute;left:0}
+.menu-toggle span:before{top:-7px}.menu-toggle span:after{top:7px}
+.menu-toggle.active span{background:transparent}
+.menu-toggle.active span:before{top:0;transform:rotate(45deg)}
+.menu-toggle.active span:after{top:0;transform:rotate(-45deg)}
+
+.hero{min-height:100vh}
+.hero-grid{display:grid;grid-template-columns:.9fr 1.1fr;min-height:100vh}
+.hero-copy{display:flex;flex-direction:column;justify-content:center;padding-right:70px;padding-top:82px}
+.hero h1{font-family:Montserrat,Arial,sans-serif;font-weight:300;font-size:clamp(4rem,7.2vw,7.2rem);line-height:.94;margin:0 0 22px}
+.hero p{color:var(--muted);max-width:390px;margin:0 0 26px;line-height:1.7}
+.hero-image{min-height:100%;overflow:hidden}
+.hero-image img{width:100%;height:100%;object-fit:cover}
+.about,.work,.services,.cta{padding:110px 0}
+.about-grid,.work-grid,.services-grid{display:grid;gap:24px}
+.about-grid{grid-template-columns:1.05fr .95fr;align-items:center}
+.work-grid,.services-grid{grid-template-columns:repeat(3,1fr)}
+.about img,.work-card img{width:100%;object-fit:cover}
+.about img{aspect-ratio:4/3}
+.work-card img{aspect-ratio:4/3}
+.work-card h3{margin:14px 0 0}
+.about h2,.work h2,.services h2,.cta h2{font-family:Montserrat,Arial,sans-serif;font-weight:300;letter-spacing:.03em}
+.cta{text-align:center}
+.cta img{width:115px;margin:auto}
+.btn{display:inline-block;border:1px solid rgba(255,255,255,.3);padding:14px 18px;font-size:.68rem;text-transform:uppercase;letter-spacing:.12em;transition:.2s ease}
+.btn:hover{background:#fff;color:#050505}
+.muted{color:var(--muted)}
+
+@media(max-width:960px){
+  .wrap{width:min(calc(100% - 36px),1280px)}
+  .nav{height:74px}
+  .logo img{width:78px}
+  .menu-toggle{display:flex}
+  .links{position:fixed;inset:0;background:rgba(6,6,6,.97);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:0;padding:100px 28px 48px;transform:translateX(100%);opacity:0;visibility:hidden;transition:transform .35s cubic-bezier(.22,.8,.2,1),opacity .25s ease,visibility .25s ease;font-size:1rem;letter-spacing:.12em}
+  .links.open{transform:translateX(0);opacity:1;visibility:visible}
+  .links>a{width:100%;padding:18px 0;border-bottom:1px solid var(--line);opacity:1}
+  .links .btn{margin-top:28px;width:auto;border:1px solid rgba(255,255,255,.35);padding:15px 18px}
+  .hero-grid,.about-grid,.work-grid,.services-grid{grid-template-columns:1fr}
+  .hero-grid{min-height:auto}
+  .hero-copy{padding:130px 0 52px;min-height:62vh}
+  .hero-image{height:46vh;min-height:360px}
+  .about,.work,.services,.cta{padding:84px 0}
+  .about-grid{gap:40px}
+  .services-grid>div{padding:20px 0;border-bottom:1px solid var(--line)}
+}
+
+@media(max-width:600px){
+  .wrap{width:min(calc(100% - 28px),1280px)}
+  .nav{height:68px}
+  .logo img{width:68px}
+  .menu-toggle{width:40px;height:40px}
+  .hero-copy{padding:112px 0 44px;min-height:auto}
+  .hero h1{font-size:clamp(3.25rem,16vw,4.6rem);line-height:.95;letter-spacing:-.02em}
+  .hero p{font-size:.95rem;max-width:320px}
+  .hero-image{height:42vh;min-height:300px}
+  .about,.work,.services,.cta{padding:68px 0}
+  .about h2,.work h2,.services h2,.cta h2{font-size:clamp(1.9rem,9vw,2.7rem);line-height:1.05}
+  .work-grid{gap:30px}
+  .work-card img{aspect-ratio:16/11}
+  .cta img{width:92px}
+  .links{padding:90px 22px 38px}
+}
+</style>
 </head>
 <body>
 <div class="intro" id="intro"><img src="dbc-logo.png" alt="Dream Big Creatives"></div>
-<nav><div class="wrap nav"><a class="logo" href="#top"><img src="dbc-logo.png" alt="Dream Big Creatives"></a><div class="links"><a href="#about">About</a><a href="#work">Work</a><a href="#services">Services</a><a href="https://www.facebook.com/dreambigcreatives" target="_blank">Facebook</a><a class="btn" href="#contact">Inquire</a></div></div></nav>
+<nav id="siteNav"><div class="wrap nav"><a class="logo" href="#top"><img src="dbc-logo.png" alt="Dream Big Creatives"></a><button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false"><span></span></button><div class="links" id="mobileMenu"><a href="#about">About</a><a href="#work">Work</a><a href="#services">Services</a><a href="https://www.facebook.com/dreambigcreatives" target="_blank" rel="noopener">Facebook</a><a class="btn" href="#contact">Inquire</a></div></div></nav>
 <header class="hero" id="top"><div class="wrap hero-grid"><div class="hero-copy"><h1>YOU DREAM.<br>WE CREATE.</h1><p>Stories captured. Moments preserved. Films made to be felt.</p><div><a class="btn" href="#work">View Our Work</a></div></div><div class="hero-image"><img src="hero.jpg" alt="Cinema production camera"></div></div></header>
 <section class="about" id="about"><div class="wrap about-grid"><img src="about.jpg" alt="Cinema lens"><div><h2>MORE THAN JUST A VIDEO.</h2><p class="muted">Dream Big Creatives is a visual storytelling studio focused on meaningful moments, refined imagery, and films that feel timeless.</p></div></div></section>
 <section class="work" id="work"><div class="wrap"><h2>RECENT WORK</h2><div class="work-grid"><div class="work-card"><img src="wedding.jpg" alt="Wedding film"><h3>Wedding Film</h3></div><div class="work-card"><img src="event.jpg" alt="Event film"><h3>Event Film</h3></div><div class="work-card"><img src="corporate.jpg" alt="Corporate film"><h3>Corporate Film</h3></div></div></div></section>
 <section class="services" id="services"><div class="wrap"><h2>OUR SERVICES</h2><div class="services-grid"><div><h3>Weddings</h3><p class="muted">Cinematic wedding films and photography.</p></div><div><h3>Events</h3><p class="muted">Debuts, celebrations, concerts and launches.</p></div><div><h3>Corporate</h3><p class="muted">Brand films, interviews and event coverage.</p></div></div></div></section>
 <section class="cta" id="contact"><div class="wrap"><img src="dbc-logo.png" alt="Dream Big Creatives"><h2>LET’S CREATE SOMETHING AMAZING.</h2><p class="muted">Tell us what you are planning and how you want the final film to feel.</p><p><a class="btn" href="tel:+639176309468">0917 630 9468</a></p></div></section>
-<script>window.addEventListener('load',()=>setTimeout(()=>document.getElementById('intro').classList.add('hide'),2200));</script>
+<script>
+window.addEventListener('load',()=>setTimeout(()=>document.getElementById('intro').classList.add('hide'),2200));
+const nav=document.getElementById('siteNav');
+const toggle=document.getElementById('menuToggle');
+const menu=document.getElementById('mobileMenu');
+function closeMenu(){menu.classList.remove('open');toggle.classList.remove('active');toggle.setAttribute('aria-expanded','false');toggle.setAttribute('aria-label','Open menu');document.body.classList.remove('menu-open');nav.classList.remove('menu-open')}
+toggle.addEventListener('click',()=>{const open=!menu.classList.contains('open');menu.classList.toggle('open',open);toggle.classList.toggle('active',open);toggle.setAttribute('aria-expanded',String(open));toggle.setAttribute('aria-label',open?'Close menu':'Open menu');document.body.classList.toggle('menu-open',open);nav.classList.toggle('menu-open',open)});
+menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMenu));
+window.addEventListener('resize',()=>{if(window.innerWidth>960)closeMenu()});
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>20),{passive:true});
+</script>
 </body>
 </html>
