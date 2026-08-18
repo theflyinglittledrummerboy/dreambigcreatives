@@ -1,0 +1,37 @@
+name: Fix mobile menu
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/fix-mobile-menu.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Update mobile navigation
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text()
+          old = '''@media(max-width:980px){.menu-toggle{display:flex}.links{position:fixed;inset:0;background:rgba(8,8,8,.98);display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:0;padding:100px 28px 45px;transform:translateX(100%);opacity:0;visibility:hidden;transition:.35s}.links.open{transform:none;opacity:1;visibility:visible}.links a{width:100%;padding:18px 0;border-bottom:1px solid var(--lightline);font-size:1rem}.story-grid,.booking-grid{grid-template-columns:1fr}.quotes{grid-template-columns:1fr}.facts-grid{grid-template-columns:1fr 1fr}.fact:nth-child(3){border-left:0;border-top:1px solid var(--line)}.fact:nth-child(4){border-top:1px solid var(--line)}.feature,.feature.reverse{grid-template-columns:1fr}.feature.reverse .feature-media{order:0}.services-grid{grid-template-columns:1fr}.service,.service+.service{padding:28px 0;border-left:0;border-bottom:1px solid var(--line)}.work-head,.testimonials .section-title{align-items:flex-start;flex-direction:column}.hero-index{display:none}}'''
+          new = '''@media(max-width:980px){nav{background:rgba(8,8,8,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--lightline)}.nav{height:72px}.logo{position:relative;z-index:95;display:flex;align-items:center}.logo img{width:76px}.menu-toggle{display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;z-index:95}.links{position:fixed;top:0;right:0;bottom:0;left:0;width:100%;height:100dvh;background:rgba(8,8,8,.985);display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:0;padding:calc(92px + env(safe-area-inset-top)) 24px calc(32px + env(safe-area-inset-bottom));overflow-y:auto;-webkit-overflow-scrolling:touch;transform:translateX(100%);opacity:0;visibility:hidden;pointer-events:none;transition:transform .35s cubic-bezier(.22,.8,.2,1),opacity .25s ease,visibility .25s ease}.links.open{transform:translateX(0);opacity:1;visibility:visible;pointer-events:auto}.links a{width:100%;padding:18px 2px;border-bottom:1px solid var(--lightline);font-size:.94rem;line-height:1.2;letter-spacing:.12em}.links a:first-child{border-top:1px solid var(--lightline)}.menu-toggle span,.menu-toggle span:before,.menu-toggle span:after{width:24px}.story-grid,.booking-grid{grid-template-columns:1fr}.quotes{grid-template-columns:1fr}.facts-grid{grid-template-columns:1fr 1fr}.fact:nth-child(3){border-left:0;border-top:1px solid var(--line)}.fact:nth-child(4){border-top:1px solid var(--line)}.feature,.feature.reverse{grid-template-columns:1fr}.feature.reverse .feature-media{order:0}.services-grid{grid-template-columns:1fr}.service,.service+.service{padding:28px 0;border-left:0;border-bottom:1px solid var(--line)}.work-head,.testimonials .section-title{align-items:flex-start;flex-direction:column}.hero-index{display:none}}'''
+          if old not in s:
+              raise SystemExit('Expected mobile CSS block not found')
+          s = s.replace(old, new)
+          s = s.replace('''@media(max-width:620px){.wrap{width:min(calc(100% - 28px),var(--max))}.nav{height:70px}.logo img{width:72px}''','''@media(max-width:620px){.wrap{width:min(calc(100% - 28px),var(--max))}.nav{height:68px}.logo img{width:68px}.links{padding:calc(86px + env(safe-area-inset-top)) 20px calc(28px + env(safe-area-inset-bottom))}.links a{padding:17px 2px;font-size:.9rem}''')
+          p.write_text(s)
+          PY
+      - name: Commit mobile menu fix
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Fix mobile navigation layout"
+          git push
